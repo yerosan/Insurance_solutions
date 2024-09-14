@@ -3,10 +3,10 @@ name: EDA CI/CD Pipeline
 on:
   push:
     branches:  
-      - main # Trigger on pushes to the main branch
+      - main  # Trigger on pushes to the main branch
   pull_request:
     branches:   
-      - main # Trigger on pull requests targeting the main branch
+      - main  # Trigger on pull requests targeting the main branch
 
 jobs:
   build-and-test:
@@ -26,14 +26,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt  # Install dependencies from requirements.txt
 
-      - name: Run EDA Script
-        run: |
-          python eda.py  # Execute your EDA script
+      # - name: Run EDA Python Script
+      #   run: |
+      #     python scripts/eda.py  # Adjust the path if needed
           
-      - name: Upload Results
-        if: always()  # Ensure this step runs even if previous steps fail
-        uses: actions/upload-artifact@v3
-        with:
-          name: eda-results
-          path: |
-            results/  # Path to the directory where script saves results
+      - name: Install Jupyter
+        run: |
+          pip install jupyter nbconvert  # Install Jupyter to run notebooks
+
+      - name: Run Jupyter Notebook
+        run: |
+          jupyter nbconvert --to notebook --execute notebooks/EDA.ipynb --output notebooks/EDA_executed.ipynb  # Execute the notebook and save the output
