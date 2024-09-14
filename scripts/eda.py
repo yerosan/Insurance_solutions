@@ -82,33 +82,6 @@ class EDA:
         return df_cleaned
 
 
-    # def clean_data(self, df):
-    #     """
-    #     Cleans the dataset by handling missing values for categorical and numerical columns.
-
-    #     Args:
-    #         df (pd.DataFrame): The dataset to clean.
-
-    #     Returns:
-    #         pd.DataFrame: The cleaned dataset.
-
-    #     """
-
-    #     threshold = len(df) * 0.6
-    #     # exceptions = ['TCP DL Retrans. Vol (Bytes)','TCP UL Retrans. Vol (Bytes)']
-
-    #     # Apply dropna while excluding the specified columns
-    #     df_drop = df.dropna(thresh=threshold, axis=1)
-    #     # Handling missing values for categorical columns and numerical columns
-    #     columns=df_drop.columns
-    #     for col in columns:
-    #         if df_drop[col].dtype=="object":
-    #            df_drop[col] = df_drop[col].fillna(df_drop[col].mode()[0])  # Impute with mode
-    #         else:
-    #             df_drop[col] = df_drop[col].fillna(df_drop[col].mean())  # Impute with mean
-        
-    #     return df_drop
-
     def plot_histograms(self, df):
         """
         Plots histograms for numerical columns to visualize their distributions.
@@ -116,7 +89,17 @@ class EDA:
         Args:
             df (pd.DataFrame): The dataset containing the numerical columns.
         """
-        num_columns = ['TotalPremium', 'TotalClaims', 'SumInsured', 'CalculatedPremiumPerTerm']
+        columns = [
+            "TotalPremium", "TotalClaims", "SumInsured", "CalculatedPremiumPerTerm", 
+            "ExcessSelected", "VehicleType", "make", "Model", "RegistrationYear", 
+            "cubiccapacity", "kilowatts", "IsVATRegistered", 
+            "MaritalStatus", "Gender", "Province", "PostalCode", "MainCrestaZone", 
+            "SubCrestaZone", "CoverType", "CoverCategory", "CoverGroup", "Product"
+        ]
+
+        df = df[columns]
+        numeric_df=df.select_dtypes(include=['number'])
+        num_columns = numeric_df.columns
         for col in num_columns:
             plt.figure(figsize=(10, 5))
             sns.histplot(df[col], kde=True, bins=30)
@@ -134,7 +117,18 @@ class EDA:
         Args:
             df (pd.DataFrame): The dataset containing the categorical columns.
         """
-        cat_columns = ['Province', 'VehicleType', 'Gender', 'CoverCategory', 'MaritalStatus']
+
+        columns = [
+            "TotalPremium", "TotalClaims", "SumInsured", "CalculatedPremiumPerTerm", 
+            "ExcessSelected", "VehicleType", "make", "Model", "RegistrationYear", 
+            "cubiccapacity", "kilowatts", "IsVATRegistered", 
+            "MaritalStatus", "Gender", "Province", "PostalCode", "MainCrestaZone", 
+            "SubCrestaZone", "CoverType", "CoverCategory", "CoverGroup", "Product"
+        ]
+
+        df = df[columns]
+        cat_df=df.select_dtypes(include=['object'])
+        cat_columns = cat_df.columns
         for col in cat_columns:
             # Get the top 15 most frequent values
             top_15_values = df[col].value_counts().nlargest(15).index
