@@ -57,15 +57,14 @@ class EDA:
         Returns:
             pd.DataFrame: The cleaned dataset.
         """
-        # Handling missing values for categorical columns
-        cat_cols = ['Bank', 'AccountType', 'MaritalStatus', 'Gender', 'VehicleType', 'make', 'Model', 'mmcode']
-        for col in cat_cols:
-            df[col] = df[col].fillna(df[col].mode()[0])  # Impute with mode
-
-        # Handling missing values for numerical columns
-        num_cols = ['SumInsured', 'TotalPremium', 'TotalClaims', 'CalculatedPremiumPerTerm', 'CustomValueEstimate']
-        for col in num_cols:
-            df[col] = df[col].fillna(df[col].mean())  # Impute with mean
+        # Handling missing values for categorical columns and numerical columns
+        columns=df.columns
+        for col in columns:
+            if df[col].dtype=="object":
+               df[col] = df[col].fillna(df[col].mode()[0])  # Impute with mode
+            else:
+                df[col] = df[col].fillna(df[col].mean())  # Impute with mean
+        
 
         return df
 
@@ -86,6 +85,8 @@ class EDA:
             plt.show()
 
     def plot_bar_charts(self, df):
+
+       
         """
         Plots bar charts for categorical columns to visualize the frequency of top values.
 
