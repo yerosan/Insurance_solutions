@@ -2,13 +2,11 @@ name: EDA CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - main  # Trigger on pushes to the main branch
-      - task1
+    branches:  
+      - task1 # Trigger on pushes to the main branch
   pull_request:
-    branches:
-      - main  # Trigger on pull requests targeting the main branch
-      - task1
+    branches:   
+      - task1 # Trigger on pull requests targeting the main branch
 
 jobs:
   build-and-test:
