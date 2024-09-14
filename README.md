@@ -8,6 +8,7 @@ This repository contains code and resources for performing Exploratory Data Anal
 ## Repository Structure
 
 Insurance_solutions/ 
+```bash
 │ ├── .github/workflow/ # Contains the CI/CD pipeline configuration using GitHub Actions 
 │ └── eda.yml # GitHub Actions YAML file for automating testing and deployment 
 │ ├── .vscode/ # Visual Studio Code settings folder 
@@ -28,7 +29,7 @@ Insurance_solutions/
 ├── .gitignore # Specifies files and directories to be ignored by Git 
 ├── README.md # Main documentation for the repository 
 └── requirements.txt # Python package dependencies
-
+```
 markdown
 
 ## Setup
