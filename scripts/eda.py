@@ -47,26 +47,67 @@ class EDA:
         print("\n---- Duplicates ----")
         print(f"Number of duplicate rows: {df.duplicated().sum()}")
 
+
     def clean_data(self, df):
         """
-        Cleans the dataset by handling missing values for categorical and numerical columns.
+        Cleans the dataset by handling missing values in both categorical and numerical columns.
 
         Args:
             df (pd.DataFrame): The dataset to clean.
 
         Returns:
-            pd.DataFrame: The cleaned dataset.
+            pd.DataFrame: The cleaned dataset with missing values handled.
         """
-        # Handling missing values for categorical columns and numerical columns
-        columns=df.columns
-        for col in columns:
-            if df[col].dtype=="object":
-               df[col] = df[col].fillna(df[col].mode()[0])  # Impute with mode
-            else:
-                df[col] = df[col].fillna(df[col].mean())  # Impute with mean
         
+        # Set the threshold for dropping columns with too many missing values (less than 60% non-null values)
+        threshold = len(df) * 0.6
+        
+        # Drop columns with missing values exceeding the threshold
+        df_cleaned = df.dropna(thresh=threshold, axis=1)
+        
+        # Loop through each column to handle missing values
+        for col in df_cleaned.columns:
+            if col == df_cleaned.index.name:  # Skip the index column
+              continue
+            if df_cleaned[col].dtype == "object":
+                # Fill missing values in categorical columns with the most frequent value (mode)
+                df_cleaned.loc[:, col] = df_cleaned[col].fillna(df_cleaned[col].mode()[0])
+            else:
+                # Fill missing values in numerical columns with the mean value
+                df_cleaned.loc[:, col] = df_cleaned[col].fillna(df_cleaned[col].mean())
+            
+            # Remove duplicate rows from the DataFrame
+        df_cleaned = df_cleaned.drop_duplicates()
+        
+        return df_cleaned
 
-        return df
+
+    # def clean_data(self, df):
+    #     """
+    #     Cleans the dataset by handling missing values for categorical and numerical columns.
+
+    #     Args:
+    #         df (pd.DataFrame): The dataset to clean.
+
+    #     Returns:
+    #         pd.DataFrame: The cleaned dataset.
+
+    #     """
+
+    #     threshold = len(df) * 0.6
+    #     # exceptions = ['TCP DL Retrans. Vol (Bytes)','TCP UL Retrans. Vol (Bytes)']
+
+    #     # Apply dropna while excluding the specified columns
+    #     df_drop = df.dropna(thresh=threshold, axis=1)
+    #     # Handling missing values for categorical columns and numerical columns
+    #     columns=df_drop.columns
+    #     for col in columns:
+    #         if df_drop[col].dtype=="object":
+    #            df_drop[col] = df_drop[col].fillna(df_drop[col].mode()[0])  # Impute with mode
+    #         else:
+    #             df_drop[col] = df_drop[col].fillna(df_drop[col].mean())  # Impute with mean
+        
+    #     return df_drop
 
     def plot_histograms(self, df):
         """
