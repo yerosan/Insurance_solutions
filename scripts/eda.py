@@ -20,7 +20,7 @@ class EDA:
         Returns:
             pd.DataFrame: The loaded dataset.
         """
-        df = pd.read_csv(self.data_path, delimiter="|")
+        df = pd.read_csv(self.data_path, delimiter="|",low_memory=False)
         return df
 
     def summarize_data(self, df):
