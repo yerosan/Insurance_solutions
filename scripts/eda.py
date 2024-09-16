@@ -82,10 +82,6 @@ class EDA:
         return df_cleaned
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> task1
     def plot_histograms(self, df):
         """
         Plots histograms for numerical columns to visualize their distributions.
