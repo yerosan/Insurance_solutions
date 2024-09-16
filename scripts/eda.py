@@ -82,7 +82,10 @@ class EDA:
         return df_cleaned
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> task1
     def plot_histograms(self, df):
         """
         Plots histograms for numerical columns to visualize their distributions.
@@ -90,7 +93,17 @@ class EDA:
         Args:
             df (pd.DataFrame): The dataset containing the numerical columns.
         """
-        num_columns = ['TotalPremium', 'TotalClaims', 'SumInsured', 'CalculatedPremiumPerTerm']
+        columns = [
+            "TotalPremium", "TotalClaims", "SumInsured", "CalculatedPremiumPerTerm", 
+            "ExcessSelected", "VehicleType", "make", "Model", "RegistrationYear", 
+            "cubiccapacity", "kilowatts", "IsVATRegistered", 
+            "MaritalStatus", "Gender", "Province", "PostalCode", "MainCrestaZone", 
+            "SubCrestaZone", "CoverType", "CoverCategory", "CoverGroup", "Product"
+        ]
+
+        df = df[columns]
+        numeric_df=df.select_dtypes(include=['number'])
+        num_columns = numeric_df.columns
         for col in num_columns:
             plt.figure(figsize=(10, 5))
             sns.histplot(df[col], kde=True, bins=30)
@@ -108,7 +121,18 @@ class EDA:
         Args:
             df (pd.DataFrame): The dataset containing the categorical columns.
         """
-        cat_columns = ['Province', 'VehicleType', 'Gender', 'CoverCategory', 'MaritalStatus']
+
+        columns = [
+            "TotalPremium", "TotalClaims", "SumInsured", "CalculatedPremiumPerTerm", 
+            "ExcessSelected", "VehicleType", "make", "Model", "RegistrationYear", 
+            "cubiccapacity", "kilowatts", "IsVATRegistered", 
+            "MaritalStatus", "Gender", "Province", "PostalCode", "MainCrestaZone", 
+            "SubCrestaZone", "CoverType", "CoverCategory", "CoverGroup", "Product"
+        ]
+
+        df = df[columns]
+        cat_df=df.select_dtypes(include=['object'])
+        cat_columns = cat_df.columns
         for col in cat_columns:
             # Get the top 15 most frequent values
             top_15_values = df[col].value_counts().nlargest(15).index
