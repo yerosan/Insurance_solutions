@@ -82,32 +82,6 @@ class EDA:
         return df_cleaned
 
 
-    # def clean_data(self, df):
-    #     """
-    #     Cleans the dataset by handling missing values for categorical and numerical columns.
-
-    #     Args:
-    #         df (pd.DataFrame): The dataset to clean.
-
-    #     Returns:
-    #         pd.DataFrame: The cleaned dataset.
-
-    #     """
-
-    #     threshold = len(df) * 0.6
-    #     # exceptions = ['TCP DL Retrans. Vol (Bytes)','TCP UL Retrans. Vol (Bytes)']
-
-    #     # Apply dropna while excluding the specified columns
-    #     df_drop = df.dropna(thresh=threshold, axis=1)
-    #     # Handling missing values for categorical columns and numerical columns
-    #     columns=df_drop.columns
-    #     for col in columns:
-    #         if df_drop[col].dtype=="object":
-    #            df_drop[col] = df_drop[col].fillna(df_drop[col].mode()[0])  # Impute with mode
-    #         else:
-    #             df_drop[col] = df_drop[col].fillna(df_drop[col].mean())  # Impute with mean
-        
-    #     return df_drop
 
     def plot_histograms(self, df):
         """
