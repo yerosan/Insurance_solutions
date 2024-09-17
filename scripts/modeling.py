@@ -56,8 +56,6 @@ class Model():
         filtered_columns = [col for col in cat_columns if col not in exclude_columns]
 
         df = pd.get_dummies(data, columns=filtered_columns, drop_first=True)
-        
-       
 
         # LabelEncoding can also be used for make and model columns
         
