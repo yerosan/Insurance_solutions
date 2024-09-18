@@ -72,7 +72,7 @@ This phase involved building predictive models to forecast claims and risks base
 | Random Forest    | 0.942831  | 0.075886 |
 | XGBoost          | 0.886449  | 0.072435 |
 
-### Hyperparameter Tuned of random forest and xgbo0st
+### Hyperparameter Tuned of random forest and xgboost
 | Model            | RMSE      | MAE      |
 |------------------|-----------|----------|
 | Random Forest    | 0.776032  | 0.065670 |
