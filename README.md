@@ -1,83 +1,162 @@
-markdown
-# Insurance Solutions
+# Risk Assessment and Claims Prediction
 
-## Overview
+This project aims to enhance risk assessment, premium pricing, and claims prediction in the insurance industry by applying various machine learning and statistical modeling techniques. It is built to help insurers make data-driven decisions that improve profitability, reduce risk, and enhance customer satisfaction.
 
-This repository contains code and resources for performing Exploratory Data Analysis (EDA) and developing solutions for insurance-related datasets. It includes scripts, notebooks, and other supporting files necessary for analysis and running tests.
+## Project Overview
 
-## Repository Structure
+The project is divided into four main tasks:
 
-Insurance_solutions/ 
+1. **Exploratory Data Analysis (EDA)**
+2. **A/B Hypothesis Testing**
+3. **Statistical Modeling**
+4. **Feature Engineering & Model Tuning**
+
+---
+
+### Task 1: Exploratory Data Analysis (EDA)
+
+In this phase, we explored the dataset to understand its structure, distributions, and key insights. Several steps were taken:
+
+- **Data Cleaning**: Missing values were handled appropriately.
+- **Descriptive Statistics**: Summary statistics were generated to understand the range, distribution, and variance of key features.
+- **Visualizations**: Heatmaps, histograms, bar charts, and scatter plots were used to identify patterns and correlations between features.
+
+#### Key Insights:
+
+- Certain provinces have higher average risk levels, impacting premium pricing.
+- Total claims and profit margins vary significantly across zip codes.
+- Results from EDA helped in identifying trends and anomalies which laid the foundation for the hypothesis testing and modeling stages.
+
+---
+
+### Task 2: A/B Hypothesis Testing
+
+A/B testing was conducted to validate several hypotheses regarding insurance risk, profit margins, and customer behavior. The null hypotheses tested were:
+
+- No risk differences across provinces
+- No risk differences between zip codes
+- No significant margin (profit) difference between zip codes
+- No significant risk difference between Women and Men
+
+#### Methods:
+
+- Categorical data were tested using chi-square tests.
+- Numerical data were tested using t-tests and z-tests.
+
+#### Results:
+
+- The null hypothesis for differences in risk across provinces was rejected, indicating that province does influence risk levels.
+- Risk levels and margins were found to vary significantly by gender and zip codes, providing valuable insights for more accurate premium calculations.
+
+---
+
+### Task 3: Statistical Modeling
+
+This phase involved building predictive models to forecast claims and risks based on customer demographics and vehicle details. We experimented with three different models:
+
+- Linear Regression
+- Random Forest
+- XGBoost
+
+#### Data Preparation:
+
+- **Missing Data**: Imputation strategies were applied to handle missing values.
+- **Encoding**: Categorical features were encoded using one-hot encoding.
+- **Feature Selection**: Features like `SumInsured`, `CalculatedPremiumPerTerm`, and `VehicleIntroDate` were identified as key drivers for predictions.
+
+#### Model Performance:
+
+| Model            | RMSE      | MAE      |
+|------------------|-----------|----------|
+| Linear Regression| 0.708469  | 0.075692 |
+| Random Forest    | 0.942831  | 0.075886 |
+| XGBoost          | 0.886449  | 0.072435 |
+
+XGBoost outperformed the others with the lowest error rates (RMSE, MAE) and better overall prediction quality.
+
+---
+
+### Task 4: Feature Engineering & Model Tuning
+
+In this task, we focused on refining the models and extracting insights using advanced techniques:
+
+- **Feature Engineering**: New features like `VehicleAge` and `CapitalOutstanding` were engineered to better capture the relationships between the input variables and target variables (`TotalPremium`, `TotalClaims`).
+- **SHAP Analysis**: SHAP (SHapley Additive exPlanations) was used to explain the model predictions and understand which features contributed the most to the output.
+
+#### Key influential features:
+
+- `SumInsured`
+- `CalculatedPremiumPerTerm`
+- `VehicleIntroDate`
+
+These analyses helped validate the model and provided valuable business insights for premium pricing.
+
+---
+
+## Project Structure
+
+The repository is structured as follows:
+
 ```bash
-│ ├── .github/workflow/ # Contains the CI/CD pipeline configuration using GitHub Actions 
-│ └── eda.yml # GitHub Actions YAML file for automating testing and deployment 
-│ ├── .vscode/ # Visual Studio Code settings folder 
-│ ├── Data/ # Directory for storing raw and processed data (currently empty) 
-│ ├── notebooks/ # Jupyter notebooks for data exploration and analysis
-│              ├── init.py # Makes the directory a Python package (optional for this context) 
-│              ├── EDA.ipynb # Main Jupyter notebook for Exploratory Data Analysis 
-│              └── README.md # Documentation specific to the notebooks directory 
-│ ├── scripts/ # Python scripts for EDA and other analysis 
-│             ├── pycache/ # Python bytecode cache (auto-generated) 
-│             ├── results/ # Directory for storing results (e.g., plots, analysis outputs) 
-│             ├── eda.py # Python script that performs EDA operations 
-│             └── README.md # Documentation specific to the scripts directory 
-│ ├── src/ # Source code and modules for the main project 
-│        ├── init.py # Makes the directory a Python package 
-│ └── tests/ # Directory containing unit tests (currently empty) 
-│ ├── .env # Environment variables file for configuration (e.g., API keys, secrets) 
-├── .gitignore # Specifies files and directories to be ignored by Git 
-├── README.md # Main documentation for the repository 
-└── requirements.txt # Python package dependencies
+.github/
+Data/
+notebooks/
+    ├── EDA.ipynb
+    ├── HypothesisTesting.ipynb
+    ├── Model.ipynb
+    ├── README.md
+scripts/
+    ├── eda.py
+    ├── hypothesisTesting.py
+    ├── modeling.py
+src/
+tests/
+.gitignore
+README.md
+requirements.txt
+notebooks/: Contains Jupyter notebooks for each task including EDA, hypothesis testing, and modeling.
+scripts/: Python scripts for conducting EDA, hypothesis testing, and modeling in a modular and reusable format.
 ```
-markdown
 
-## Setup
+- `notebooks/`: Contains Jupyter notebooks for each task including EDA, hypothesis testing, and modeling.
+- `scripts/`: Python scripts for conducting EDA, hypothesis testing, and modeling in a modular and reusable format.
+- `src/`: Core functions and modules for the project.
+- `tests/`: Test cases to ensure code robustness.
 
-### Prerequisites
+---
 
-- Python 3.9 or later
-- Jupyter Notebook (for running `.ipynb` files)
-- Dependencies listed in `requirements.txt`
+## Key Learnings and Insights
 
-### Installation
+- Risk varies significantly across geographic and demographic features, suggesting insurers can refine their pricing strategies based on region and customer profile.
+- Feature importance analysis via SHAP provided critical insights into which variables drive premium calculations and claims.
+- XGBoost outperformed other models due to its ability to capture complex relationships between features.
 
-1. **Clone the repository:**
+---
 
-   ```bash
-   git clone https://github.com/yerosan/Insurance_solutions.git
-   cd Insurance_solutions
+## How to Run
 
-   `````
-Install the dependencies:
+### Clone the repository:
+
+```bash
+git clone https://github.com/yerosan/Insurance_solutions.git
+cd Insurance_solutions
+
+
+```
+Install Dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
-Set up environment variables:
+### Run the Jupyter notebooks for each task:
+  - EDA: notebooks/EDA.ipynb
+  - Hypothesis Testing: notebooks/HypothesisTesting.ipynb
+  - Modeling: notebooks/Model.ipynb
 
-Make sure to create an .env file with appropriate variables for your environment (if needed).
-
-Usage
-Running the EDA Notebook
-Navigate to the notebooks/ directory and open the Jupyter notebook to perform EDA:
-
-```bash
-cd notebooks
-jupyter notebook EDA.ipynb
-```
-Running the EDA Script
-To run the Python EDA script directly:
+### Execute Python scripts from the terminal for automated execution:
 
 ```bash
-cd scripts
-python eda.py
+python scripts/eda.py
+python scripts/hypothesisTesting.py
+python scripts/modeling.py
 ```
-The results will be saved in the scripts/results/ directory as visualizations or outputs.
-
-CI/CD Pipeline
-This repository is configured with a GitHub Actions workflow for CI/CD. The workflow defined in .github/workflow/eda.yml runs automated tests and can be extended for deployment.
-
-
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
